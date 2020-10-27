@@ -28,7 +28,7 @@ switch($page)
     break;
     case 'user-list':
         // routage vers PageController
-        UserController::getAll();
+        UserController::getAllUsers();
         break;
     case 'user-insert':
         // routage vers PageController
@@ -36,13 +36,6 @@ switch($page)
         $content = $_POST['content'];
 
         UserController::insertUser();
-        break;
-    case 'comment-insert':
-        // routage vers CommentController
-        $id_post = $_GET['id_post'];
-        $content = $_POST['content'];
-
-        CommentController::InsertAction($content, $id_post);
         break;
     default:
         //todo: ERREUR 404

@@ -1,6 +1,10 @@
 <?php
+
 namespace Valarep\model;
-use \databaseConnexion;
+
+use Valarep\model\databaseConnexion;
+use \PDO;
+
 class User {
     public $id;
     public $last_name;

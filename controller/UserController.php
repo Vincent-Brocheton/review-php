@@ -17,6 +17,7 @@ class UserController{
         $user->nb_member = $_POST["nb_member"];
         $user->register();
         $users = $user->getAll();
+        var_dump($users);
     }
 
     public static function getAllUsers(){

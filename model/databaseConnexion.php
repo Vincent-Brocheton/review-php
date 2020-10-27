@@ -1,5 +1,7 @@
 <?php
+namespace Valarep\model;
 
+use Valarep\View;
 use \PDO;
 use \PDOException;
 

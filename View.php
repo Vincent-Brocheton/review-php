@@ -1,4 +1,5 @@
 <?php
+
 namespace Valarep;
 
 class View

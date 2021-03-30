@@ -11,5 +11,10 @@
             "name": "Vincent.Brocheton",
             "email": "vinc.brocheton@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Valarep\\": "./"
+        }
+    }
 }

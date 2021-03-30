@@ -9,7 +9,7 @@ class View
 
     public static function setTemplate($name)
     {
-        self::$template = "templates/" . $name . ".html.php";
+        self::$template = "view/" . $name . ".html.php";
     }
 
     public static function bindVariable($name, $value)

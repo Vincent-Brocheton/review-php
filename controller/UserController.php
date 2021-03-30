@@ -27,12 +27,38 @@ class UserController
     {
         $user = new User;
         $users = $user->getAll();
-        var_dump($users);
     }
 
     public static function userIndex()
     {
         View::setTemplate("register");
+        View::display();
+    }
+
+    public static function loginPage(){
+        View::setTemplate('login');
+        View::display();
+    }
+
+    public static function login($email, $password){
+        $user=new User();
+        $users = $user->login($email, $password);
+        if($users != null){
+            $_SESSION['user'] = $users;
+            View::setTemplate('account');
+            View::bindVariable("user", $users);
+            View::display();
+        } else {
+            unset($_SESSION['user']);
+            View::setTemplate('login');
+            View::display();
+        }
+    }
+
+    public static function logout(){
+        unset($_SESSION['user']);
+
+        View::setTemplate('welcome');
         View::display();
     }
 }

@@ -1,14 +1,18 @@
 <?php
-
 namespace Valarep;
 
-// début de l'application web
+
+// inclusion des classes externes
+use Valarep\controller\CommandController;
+use Valarep\controller\UserController;
+use Valarep\controller\WelcomeController;
 
 // Chargement automatique des classes
 require_once "vendor/autoload.php";
 
-// inclusion des classes externes
-use Valarep\controller\UserController;
+// début de l'application web
+session_start();
+
 
 // récupération de la variable transmise par GET
 // est ce qu'on a cliqué sur le navbar ?
@@ -16,12 +20,35 @@ if (isset($_GET['page'])) {
     $page = $_GET['page'];
 } else {
     // page par défaut
-    $page = 'user-list';
+    $page = 'welcome';
 }
-
 switch ($page) {
+    case 'welcome':
+        WelcomeController::Welcome();
+        break;
+    case 'login':
+        UserController::loginPage();
+        break;
+    case 'connect':
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        UserController::login($email, $password);
+        break;
+    case 'logout':
+        UserController::logout();
+        break;
     case 'register':
         UserController::userIndex();
+        break;
+    case 'command':
+            CommandController::Command();
+        break;
+    case 'makeCommand':
+        CommandController::makeCommand();
+        break;
+    case 'viewCommand':
+        CommandController::viewCommand();
         break;
     case 'user-list':
         // routage vers PageController

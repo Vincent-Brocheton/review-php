@@ -1,0 +1,9 @@
+.centrage{
+    display: flex;
+    justify-content: end;
+}
+
+.autour{
+    display: flex;
+    justify-content: space-around;
+}

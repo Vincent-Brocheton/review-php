@@ -40,6 +40,6 @@
         </fieldset>
     </form>
 </body>
-<?php require "script.php" ?>
+<?php require "script.html.php" ?>
 
 </html>

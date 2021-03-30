@@ -14,11 +14,12 @@ class User {
     public $mail;
     public $nb_member;
     public $password;
+    public $role = "USER_ROLE";
 
     public function register(){
         $dbh = databaseConnexion::open();
-        $query = "INSERT INTO `users` (`last_name`, `first_name`, `adresse`, `phone`, `mail`,`nb_member`, `password`) 
-VALUES (:last_name, :first_name, :adresse, :phone, :mail, :nb_member, :password);";
+        $query = "INSERT INTO `users` (`last_name`, `first_name`, `adresse`, `phone`, `mail`,`nb_member`, `password`, `role`) 
+VALUES (:last_name, :first_name, :adresse, :phone, :mail, :nb_member, :password, :role);";
         $sth = $dbh->prepare($query);
         $sth->bindParam(":last_name",$this->last_name);
         $sth->bindParam(":first_name", $this->first_name);
@@ -27,6 +28,7 @@ VALUES (:last_name, :first_name, :adresse, :phone, :mail, :nb_member, :password)
         $sth->bindParam(":mail", $this->mail);
         $sth->bindParam(":nb_member", $this->nb_member);
         $sth->bindParam(":password", $this->password);
+        $sth->bindParam(":role", $this->role);
         $sth->execute();
         databaseConnexion::close();
     }
@@ -43,5 +45,21 @@ VALUES (:last_name, :first_name, :adresse, :phone, :mail, :nb_member, :password)
         $items = $sth->fetchAll();
         databaseConnexion::close();
         return $items;
+    }
+
+    public function login($mail, $password){
+        $dbh = databaseConnexion::open();
+        $query = "SELECT * FROM `users` WHERE `mail`= :mail AND `password`= :password;";
+        $sth = $dbh->prepare($query);
+        $sth->bindParam(":mail", $mail);
+        $sth->bindParam(":password", $password);
+        $sth->execute();
+        $sth->setFetchMode(
+            PDO::FETCH_CLASS, // on veut des objets
+            "Valarep\\model\\User" // la classe Post complètement qualifiée
+        );
+        $item = $sth->fetch();
+        databaseConnexion::close();
+        return $item;
     }
 }

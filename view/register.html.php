@@ -5,7 +5,7 @@
 <body>
     <?php require "navbar.html.php" ?>
 
-    <form action="?page=user-insert" method="POST">
+    <form action="<?= $path ?>/insertUser" method="POST">
         <fieldset class="border offset-3 col-6 my-2">
             <legend>Créez votre compte</legend>
             <div class="form-group">

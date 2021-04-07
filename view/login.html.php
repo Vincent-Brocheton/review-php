@@ -4,7 +4,7 @@
 
 <body>
 <?php require "navbar.html.php" ?>
-<form action="?page=connect" method="POST">
+<form action="<?= $path ?>/connect" method="POST">
     <fieldset class="offset-3 col-6 my-2">
         <legend>Connectez-vous</legend>
     <div class="form-group">

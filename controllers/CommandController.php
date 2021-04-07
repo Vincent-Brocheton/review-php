@@ -1,6 +1,6 @@
 <?php
 
-namespace Valarep\controller;
+namespace Valarep\controllers;
 
 use Valarep\model\Command;
 use Valarep\View;

@@ -1,5 +1,4 @@
 <?php
-
 namespace Valarep;
 
 class View
@@ -25,6 +24,10 @@ class View
             $$name = $value;
         }
 
+        // Récupération de la racine de l'url
+        $router = new Router();
+        $path =  $router->getBasePath();
+        
         require self::$template;
     }
 }

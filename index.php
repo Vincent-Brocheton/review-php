@@ -11,9 +11,12 @@ $router = new Router();
 $router->addRoute(new Route("/", "WelcomeController"));
 $router->addRoute(new Route("/home", "WelcomeController"));
 $router->addRoute(new Route("/login", "UserController"));
+$router->addRoute(new Route("/logout", "UserController"));
 $router->addRoute(new Route("/register", "UserController"));
 $router->addRoute(new Route("/connect", "UserController"));
 $router->addRoute(new Route("/insertUser", "UserController"));
+$router->addRoute(new Route("/command", "CommandController"));
+$router->addRoute(new Route("/command/{*}", "CommandController"));
 
 $route = $router->findRoute();
 

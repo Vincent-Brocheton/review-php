@@ -2,10 +2,27 @@
 
 namespace Valarep\controllers;
 
+use Valarep\Route;
+use Valarep\Router;
 use Valarep\model\Command;
 use Valarep\View;
 
 class CommandController{
+
+    public static function route(){
+        $router = new Router();
+        $router->addRoute(new Route("/command", "CommandController", "Command"));
+        $router->addRoute(new Route("/command/make", "CommandController", "makeCommand"));
+        $router->addRoute(new Route("/command/view", "CommandController", "viewCommand"));
+        
+        $route = $router->findRoute();
+        
+        if($route){
+            $route->execute();
+        }else{
+            echo "Page Not Found";
+        }
+    }
 
     public static function Command(){
         $user = $_SESSION['user'];

@@ -11,8 +11,8 @@
 <?php if($lastCommand->isAccepted == true): ?>
     Êtes vous sûre de vouloir passer une commande de masque pour votre foyer?
     <div class="autour mt-3">
-        <a class="btn btn-danger" href="?page=account">Annuler</a>
-        <a class="btn btn-success" href="?page=makeCommand">Valider</a>
+        <a class="btn btn-danger" href="<?= $path ?>/home">Annuler</a>
+        <a class="btn btn-success" href="<?= $path ?>/command/make">Valider</a>
     </div>
     <?php else: ?>
         <div class="autour mt-3">
@@ -22,8 +22,8 @@
     <?php else: ?>
         Êtes vous sûre de vouloir passer une commande de masque pour votre foyer?
     <div class="autour mt-3">
-        <a class="btn btn-danger" href="?page=account">Annuler</a>
-        <a class="btn btn-success" href="?page=makeCommand">Valider</a>
+        <a class="btn btn-danger" href="<?= $path ?>/home">Annuler</a>
+        <a class="btn btn-success" href="<?= $path ?>/command/make">Valider</a>
     </div>
     <?php endif; ?>
 </div>

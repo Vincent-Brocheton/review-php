@@ -12,6 +12,7 @@ class UserController
     public static function route(){
         $router = new Router();
         $router->addRoute(new Route("/login", "UserController", "loginPage"));
+        $router->addRoute(new Route("/logout", "UserController", "logout"));
         $router->addRoute(new Route("/register", "UserController", "userIndex"));
         $router->addRoute(new Route("/connect", "UserController", "login"));
         $router->addRoute(new Route("/insertUser", "UserController", "insertUser"));
@@ -36,6 +37,12 @@ class UserController
             $user->password = $_POST['password'];
             $user->nb_member = $_POST['nb_member'];
             $user->register();
+
+            $router = new Router();
+
+            $path =  $router->getBasePath();
+
+            header("location: {$path}/");
     
     }
 
@@ -80,7 +87,10 @@ class UserController
     public static function logout(){
         unset($_SESSION['user']);
 
-        View::setTemplate('welcome');
-        View::display();
+        $router = new Router();
+
+        $path =  $router->getBasePath();
+
+        header("location: {$path}/");
     }
 }

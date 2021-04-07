@@ -8,17 +8,20 @@
             <li class="nav-item active">
                 <a class="nav-link" href="<?= $path ?>/home">Accueil</a>
             </li>
-                <?php if(isset($_SESSION['user'])): ?>
+                <?php if(isset($_SESSION['user']) && $_SESSION['user']->role === "USER_ROLE"): ?>
             <li class="nav-item">
-                <a class="nav-link" href="?page=command">Commander vos masques</a>
+                <a class="nav-link" href="<?= $path ?>/command">Commander vos masques</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="?page=viewCommand">Voir vos commandes</a>
+                <a class="nav-link" href="<?= $path ?>/command/view">Voir vos commandes</a>
             </li>
             <?php endif ?>
+            <?php if(isset($_SESSION['user']) && $_SESSION['user']->role === "ROLE_ADMIN"): ?>
+            Coucou
+                <?php endif ?>
         </ul>
         <?php if(isset($_SESSION['user'])): ?>
-        <a href="?page=logout" class="btn btn-danger mr-2">Deconnexion</a>
+        <a href="<?= $path ?>/logout" class="btn btn-danger mr-2">Deconnexion</a>
         <?php elseif(!isset($_SESSION['user'])) :?>
         <a href="<?= $path ?>/login" class="btn btn-primary mr-2">Login</a>
         <a href="<?= $path ?>/register" class="btn btn-warning">Vous inscrire</a>

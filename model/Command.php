@@ -15,7 +15,7 @@ class Command{
 
     public function makeCommand($user_id, $masque){
         $dbh = databaseConnexion::open();
-        $query = "INSERT INTO `command`(`nb_masque`, `isAccepted`, `id_user`) VALUES (:nb_masque,false, :id_user);";
+        $query = "INSERT INTO `command`(`nb_masque`, `isAccepted`, `id_user`) VALUES (:nb_masque, false, :id_user);";
         $sth = $dbh->prepare($query);
         $sth->bindParam(":nb_masque", $masque);
         $sth->bindParam(":id_user", $user_id);

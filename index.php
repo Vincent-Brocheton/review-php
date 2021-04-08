@@ -17,6 +17,8 @@ $router->addRoute(new Route("/connect", "UserController"));
 $router->addRoute(new Route("/insertUser", "UserController"));
 $router->addRoute(new Route("/command", "CommandController"));
 $router->addRoute(new Route("/command/{*}", "CommandController"));
+$router->addRoute(new Route("/users", "UserController"));
+$router->addRoute(new Route("/user/{*}", "UserController"));
 
 $route = $router->findRoute();
 

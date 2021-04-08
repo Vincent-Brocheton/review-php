@@ -2,6 +2,7 @@
 
 namespace Valarep\controllers;
 
+use Valarep\model\Command;
 use Valarep\Route;
 use Valarep\Router;
 use Valarep\model\User;
@@ -16,6 +17,8 @@ class UserController
         $router->addRoute(new Route("/register", "UserController", "userIndex"));
         $router->addRoute(new Route("/connect", "UserController", "login"));
         $router->addRoute(new Route("/insertUser", "UserController", "insertUser"));
+        $router->addRoute(new Route("/users", "UserController", "getAllUsers"));
+        $router->addRoute(new Route("/user/{id}", "UserController", "getCommandUser"));
         
         $route = $router->findRoute();
         
@@ -24,6 +27,13 @@ class UserController
         }else{
             echo "Page Not Found";
         }
+    }
+
+    public static function getCommandUser($id){
+        $command_user = Command::getCommandByUser($id);
+        View::setTemplate('commandview');
+        View::bindVariable('commands',$command_user);
+        View::display();
     }
 
     public static function insertUser()
@@ -50,6 +60,9 @@ class UserController
     {
         $user = new User;
         $users = $user->getAll();
+        View::setTemplate('user-list');
+        View::bindVariable('users', $users);
+        View::display();
     }
 
     public static function userIndex()
@@ -70,9 +83,19 @@ class UserController
         $users = $user->login($email, $password);
         if($users != null){
             $_SESSION['user'] = $users;
-            View::setTemplate('account');
-            View::bindVariable("user", $users);
-            View::display();
+            if($_SESSION['user']->role === 'USER_ROLE'){
+                View::setTemplate('account');
+                View::bindVariable("user", $users);
+                View::display();
+            }else if($_SESSION['user']->role === 'ROLE_ADMIN'){
+                $router= new Router();
+
+                $path = $router->getBasePath();
+
+                header("location: {$path}/users");
+            }else{
+                echo "Page Not Found";
+            }
         } else {
             unset($_SESSION['user']);
 

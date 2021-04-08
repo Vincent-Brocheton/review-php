@@ -17,8 +17,13 @@
             </li>
             <?php endif ?>
             <?php if(isset($_SESSION['user']) && $_SESSION['user']->role === "ROLE_ADMIN"): ?>
-            Coucou
-                <?php endif ?>
+                <li class="nav-item">
+                <a class="nav-link" href="<?= $path ?>/command">Commander vos masques</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= $path ?>/command/view">Voir vos commandes</a>
+            </li>
+            <?php endif ?>
         </ul>
         <?php if(isset($_SESSION['user'])): ?>
         <a href="<?= $path ?>/logout" class="btn btn-danger mr-2">Deconnexion</a>

@@ -13,12 +13,18 @@ class UserController
     public static function route(){
         $router = new Router();
         $router->addRoute(new Route("/login", "UserController", "loginPage"));
-        $router->addRoute(new Route("/logout", "UserController", "logout"));
         $router->addRoute(new Route("/register", "UserController", "userIndex"));
         $router->addRoute(new Route("/connect", "UserController", "login"));
         $router->addRoute(new Route("/insertUser", "UserController", "insertUser"));
-        $router->addRoute(new Route("/users", "UserController", "getAllUsers"));
-        $router->addRoute(new Route("/user/{id}", "UserController", "getCommandUser"));
+        if(isset($_SESSION['user'])){
+            $router->addRoute(new Route("/logout", "UserController", "logout"));
+            if($_SESSION['user']->role === 'USER_ROLE'){
+                $router->addRoute(new Route("/profil", "UserController", "profil"));
+            }else if($_SESSION['user']->role === 'ROLE_ADMIN'){
+                $router->addRoute(new Route("/users", "UserController", "getAllUsers"));
+                $router->addRoute(new Route("/user/{id}", "UserController", "getCommandUser"));
+            }
+        }
         
         $route = $router->findRoute();
         
@@ -27,6 +33,14 @@ class UserController
         }else{
             echo "Page Not Found";
         }
+    }
+
+    public static function profil(){
+        $user = $_SESSION['user'];
+        View::setTemplate('account');
+        View::bindVariable("user", $user);
+        View::display();
+
     }
 
     public static function getCommandUser($id){
@@ -84,9 +98,11 @@ class UserController
         if($users != null){
             $_SESSION['user'] = $users;
             if($_SESSION['user']->role === 'USER_ROLE'){
-                View::setTemplate('account');
-                View::bindVariable("user", $users);
-                View::display();
+                $router= new Router();
+
+                $path = $router->getBasePath();
+
+                header("location: {$path}/profil");
             }else if($_SESSION['user']->role === 'ROLE_ADMIN'){
                 $router= new Router();
 

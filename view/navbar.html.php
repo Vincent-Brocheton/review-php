@@ -18,10 +18,10 @@
             <?php endif ?>
             <?php if(isset($_SESSION['user']) && $_SESSION['user']->role === "ROLE_ADMIN"): ?>
                 <li class="nav-item">
-                <a class="nav-link" href="<?= $path ?>/command">Commander vos masques</a>
+                <a class="nav-link" href="<?= $path ?>/users">Voir les utilisateurs</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?= $path ?>/command/view">Voir vos commandes</a>
+                <a class="nav-link" href="<?= $path ?>/command/wait">Voir les demandes en attente</a>
             </li>
             <?php endif ?>
         </ul>

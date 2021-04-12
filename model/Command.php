@@ -34,4 +34,24 @@ class Command{
         databaseConnexion::close();
         return $item;
     }
+
+    public static function acceptCommand($id){
+        $dbh = databaseConnexion::open();
+        $query = "UPDATE`command`SET `isAccepted`=true WHERE `id`=:id;";
+        $sth = $dbh->prepare($query);
+        $sth->bindParam(":id",$id);
+        $sth->execute();
+        databaseConnexion::close();
+    }
+
+    public static function waitCommand(){
+        $dbh = databaseConnexion::open();
+        $query = "SELECT * FROM `command` WHERE `isAccepted` = false ORDER BY `id` DESC;";
+        $sth = $dbh->prepare($query);
+        $sth->execute();
+        $sth->setFetchMode(PDO::FETCH_CLASS, "Valarep\\model\\Command");
+        $items = $sth->fetchAll();
+        databaseConnexion::close();
+        return $items;
+    }
 }

@@ -11,9 +11,16 @@ class CommandController{
 
     public static function route(){
         $router = new Router();
-        $router->addRoute(new Route("/command", "CommandController", "Command"));
-        $router->addRoute(new Route("/command/make", "CommandController", "makeCommand"));
-        $router->addRoute(new Route("/command/view", "CommandController", "viewCommand"));
+        if(isset($_SESSION['user'])){
+            if($_SESSION['user']->role === 'USER_ROLE'){
+                $router->addRoute(new Route("/command", "CommandController", "Command"));
+                $router->addRoute(new Route("/command/make", "CommandController", "makeCommand"));
+                $router->addRoute(new Route("/command/view", "CommandController", "viewCommand"));
+            }else if($_SESSION['user']->role === 'ROLE_ADMIN'){
+                $router->addRoute(new Route("/command/{id}/accept", "CommandController", "acceptCommand"));
+                $router->addRoute(new Route("/command/wait", "CommandController", "waitCommand"));
+            }
+        }
         
         $route = $router->findRoute();
         
@@ -22,6 +29,24 @@ class CommandController{
         }else{
             echo "Page Not Found";
         }
+    }
+
+    public static function waitCommand(){
+        $commands = Command::waitCommand();
+        View::setTemplate('commandview');
+        View::bindVariable('commands',$commands);
+        View::display();
+    }
+
+    public static function acceptCommand($id){
+        $id_command = filter_var($id, FILTER_VALIDATE_INT);
+        Command::acceptCommand($id_command);
+
+        $router = new Router();
+
+        $path =  $router->getBasePath();
+
+        header("location: {$path}/users");
     }
 
     public static function Command(){
